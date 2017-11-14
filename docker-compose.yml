@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  nginx:
+    build: ./nginx/
+    links:
+      - node:node
+    ports:
+      - 80:80
+  node:
+    build: ./nodejs/
+    #command: npm run dev
+    environment:
+      SERVER_PORT: ${NODE_PORT}
+      USER: ${USER}
+      HOST: ${HOST}
+      KEY: ${KEY}
+      REF: ${REF}
+      REPO: ${REPO}
+      APP_PATH: ${APP_PATH}
