@@ -1,7 +1,6 @@
 FROM node
 WORKDIR /usr/src/app
-COPY package.json .
+COPY . .
 RUN apt-get update \
  && npm install --quiet
-COPY . .
 CMD ["node", "index.js"]
