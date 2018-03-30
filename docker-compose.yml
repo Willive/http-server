@@ -1,20 +1,25 @@
-version: '2'
+version: '3.5'
 
 services:
+
+  web-app:
+    container_name: web-app
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile
+    volumes:
+      - ./web-app/src:/usr/src/app/src
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+
   nginx:
-    build: ./nginx/
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     links:
-      - node:node
+      - web-app:web-app
     ports:
       - 80:80
-  node:
-    build: ./nodejs/
-    #command: npm run dev
-    environment:
-      SERVER_PORT: ${NODE_PORT}
-      USER: ${USER}
-      HOST: ${HOST}
-      KEY: ${KEY}
-      REF: ${REF}
-      REPO: ${REPO}
-      APP_PATH: ${APP_PATH}
+      
